@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DocuMind — AI Document Q&A</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:#f0f0f0;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:40px 24px}
+h1{font-size:36px;font-weight:800;color:#a78bfa;margin-bottom:8px}
+p.sub{color:#666;margin-bottom:40px;font-size:14px}
+.card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:24px;margin-bottom:24px}
+.card h2{font-size:14px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.upload-area{border:2px dashed #333;border-radius:8px;padding:32px;text-align:center;cursor:pointer;transition:.2s}
+.upload-area:hover{border-color:#a78bfa}
+.upload-area input{display:none}
+.btn{background:#a78bfa;color:#000;border:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;width:100%;margin-top:12px;transition:.15s}
+.btn:hover{background:#c4b5fd}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.input-row{display:flex;gap:8px}
+input[type=text]{flex:1;background:#111;border:1px solid #333;border-radius:8px;padding:12px 16px;color:#f0f0f0;font-size:14px;outline:none}
+input[type=text]:focus{border-color:#a78bfa}
+.ask-btn{background:#a78bfa;color:#000;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer}
+.answer{background:#111;border-left:3px solid #a78bfa;padding:16px;border-radius:0 8px 8px 0;margin-top:16px;font-size:15px;line-height:1.7;display:none}
+.status{font-size:13px;color:#a78bfa;margin-top:8px;min-height:20px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>DocuMind</h1>
+  <p class="sub">Upload a PDF and ask questions — powered by Google Gemini + RAG</p>
+
+  <div class="card">
+    <h2>01 — Upload Document</h2>
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept=".pdf" onchange="handleFile(this)">
+      <div id="uploadText">Click to upload a PDF</div>
+    </div>
+    <button class="btn" id="uploadBtn" onclick="uploadFile()" disabled>Upload & Process</button>
+    <div class="status" id="uploadStatus"></div>
+  </div>
+
+  <div class="card">
+    <h2>02 — Ask a Question</h2>
+    <div class="input-row">
+      <input type="text" id="question" placeholder="What is this document about?" onkeydown="if(event.key==='Enter')askQuestion()">
+      <button class="ask-btn" onclick="askQuestion()">Ask →</button>
+    </div>
+    <div class="answer" id="answer"></div>
+  </div>
+</div>
+<script>
+const API = '';
+let selectedFile = null;
+
+function handleFile(input) {
+  selectedFile = input.files[0];
+  document.getElementById('uploadText').textContent = selectedFile.name;
+  document.getElementById('uploadBtn').disabled = false;
+}
+
+async function uploadFile() {
+  if (!selectedFile) return;
+  const btn = document.getElementById('uploadBtn');
+  const status = document.getElementById('uploadStatus');
+  btn.disabled = true;
+  btn.textContent = 'Processing...';
+  status.textContent = 'Uploading and chunking PDF...';
+  const form = new FormData();
+  form.append('file', selectedFile);
+  try {
+    const res = await fetch(`${API}/upload`, {method:'POST', body:form});
+    const data = await res.json();
+    status.textContent = `✓ ${data.message} — ${data.chunks} chunks indexed`;
+    btn.textContent = 'Upload & Process';
+  } catch(e) {
+    status.textContent = 'Error uploading file';
+    btn.disabled = false;
+    btn.textContent = 'Upload & Process';
+  }
+}
+
+async function askQuestion() {
+  const q = document.getElementById('question').value.trim();
+  if (!q) return;
+  const answerEl = document.getElementById('answer');
+  answerEl.style.display = 'block';
+  answerEl.textContent = 'Thinking...';
+  try {
+    const res = await fetch(`${API}/ask`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({question:q})
+    });
+    const data = await res.json();
+    answerEl.textContent = data.answer;
+  } catch(e) {
+    answerEl.textContent = 'Error getting answer';
+  }
+}
+</script>
+</body>
+</html>
