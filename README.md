@@ -43,5 +43,6 @@ uvicorn app.main:app --reload --port 8000
 ## Author
 
 **Arpit Sehrawat** — [@TechnoDream956](https://github.com/TechnoDream956)
+
 Bennett University | Cloud & Backend Developer
 EOF
