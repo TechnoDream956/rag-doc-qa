@@ -1,8 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-import google.generativeai as genai
+from groq import Groq
 import chromadb
 from sentence_transformers import SentenceTransformer
 import pypdf
@@ -12,8 +11,7 @@ import os
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-genai.configure(api_key=os.environ.get("AIzaSyDOktkNaDxVKcPdyhSUMTShV6P5FZcRrL8"))
-model = genai.GenerativeModel("gemini-1.5-flash")
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 chroma = chromadb.Client()
 collection = chroma.get_or_create_collection("docs")
@@ -25,7 +23,8 @@ async def upload(file: UploadFile = File(...)):
     text = " ".join(page.extract_text() for page in reader.pages if page.extract_text())
     chunks = [text[i:i+500] for i in range(0, len(text), 500)]
     embeddings = embedder.encode(chunks).tolist()
-    collection.add(documents=chunks, embeddings=embeddings, ids=[f"chunk_{i}" for i in range(len(chunks))])
+    ids = [f"chunk_{i}" for i in range(len(chunks))]
+    collection.add(documents=chunks, embeddings=embeddings, ids=ids)
     return {"message": f"Uploaded {file.filename}", "chunks": len(chunks)}
 
 @app.post("/ask")
@@ -34,9 +33,14 @@ async def ask(data: dict):
     q_embedding = embedder.encode([question]).tolist()[0]
     results = collection.query(query_embeddings=[q_embedding], n_results=3)
     context = "\n".join(results["documents"][0])
-    prompt = f"Based on this context:\n{context}\n\nAnswer this question: {question}"
-    response = model.generate_content(prompt)
-    return {"answer": response.text, "context": context[:200]}
+    response = groq_client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": "Answer questions based only on the provided context. Be clear and concise."},
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {question}"}
+        ]
+    )
+    return {"answer": response.choices[0].message.content, "context": context[:200]}
 
 @app.get("/health")
 def health():
