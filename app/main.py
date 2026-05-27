@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from groq import Groq
 import chromadb
-from sentence_transformers import SentenceTransformer
 import pypdf
 import io
 import os
@@ -12,9 +11,11 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
 chroma = chromadb.Client()
-collection = chroma.get_or_create_collection("docs")
+collection = chroma.get_or_create_collection(
+    name="docs",
+    metadata={"hnsw:space": "cosine"}
+)
 
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
@@ -22,16 +23,16 @@ async def upload(file: UploadFile = File(...)):
     reader = pypdf.PdfReader(io.BytesIO(content))
     text = " ".join(page.extract_text() for page in reader.pages if page.extract_text())
     chunks = [text[i:i+500] for i in range(0, len(text), 500)]
-    embeddings = embedder.encode(chunks).tolist()
-    ids = [f"chunk_{i}" for i in range(len(chunks))]
-    collection.add(documents=chunks, embeddings=embeddings, ids=ids)
+    collection.add(
+        documents=chunks,
+        ids=[f"chunk_{i}" for i in range(len(chunks))]
+    )
     return {"message": f"Uploaded {file.filename}", "chunks": len(chunks)}
 
 @app.post("/ask")
 async def ask(data: dict):
     question = data.get("question", "")
-    q_embedding = embedder.encode([question]).tolist()[0]
-    results = collection.query(query_embeddings=[q_embedding], n_results=3)
+    results = collection.query(query_texts=[question], n_results=3)
     context = "\n".join(results["documents"][0])
     response = groq_client.chat.completions.create(
         model="llama-3.1-8b-instant",
