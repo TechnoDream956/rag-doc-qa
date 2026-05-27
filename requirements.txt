@@ -2,6 +2,6 @@ fastapi
 uvicorn[standard]
 python-multipart
 pypdf
-chromadb
 groq
 python-dotenv
+numpy
