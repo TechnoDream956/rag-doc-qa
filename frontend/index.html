@@ -23,595 +23,227 @@
   --font:'Space Grotesk',sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
-
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font);
-  min-height:100vh;
-  overflow-x:hidden;
-}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
 
-/* ANIMATED BG */
 body::before{
-  content:'';
-  position:fixed;
-  inset:0;
+  content:'';position:fixed;inset:0;
   background:
-    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(124,58,237,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(168,85,247,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 30% at 50% 100%, rgba(124,58,237,0.04) 0%, transparent 50%);
-  pointer-events:none;
-  z-index:0;
+    radial-gradient(ellipse 60% 50% at 20% 20%,rgba(124,58,237,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 80%,rgba(168,85,247,.06) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
 }
-
-/* GRID */
 body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
-  background-size:40px 40px;
-  pointer-events:none;
-  z-index:0;
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(124,58,237,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
 }
 
-.wrap{
-  max-width:900px;
-  margin:0 auto;
-  padding:0 24px;
-  position:relative;
-  z-index:1;
-}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
 /* HEADER */
-header{
-  padding:32px 0 0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.logo-icon{
-  width:36px;height:36px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;
-  box-shadow:0 0 20px rgba(124,58,237,0.4);
-}
-
-.logo-text{
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:-0.02em;
-}
-
+header{padding:28px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 0 20px rgba(124,58,237,.4)}
+.logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em}
 .logo-text span{color:var(--accent2)}
-
-.status-pill{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(16,185,129,0.08);
-  border:1px solid rgba(16,185,129,0.2);
-  border-radius:20px;
-  padding:6px 12px;
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--green);
-}
-
-.status-dot{
-  width:6px;height:6px;
-  background:var(--green);
-  border-radius:50%;
-  animation:blink 2s infinite;
-}
-
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.status-pill{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:5px 12px;font-family:var(--mono);font-size:11px;color:var(--green)}
+.status-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* HERO */
-.hero{
-  padding:80px 0 60px;
-  text-align:center;
-  position:relative;
-}
+.hero{padding:56px 0 48px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.3);border-radius:20px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--accent3);margin-bottom:20px;letter-spacing:.05em}
+.hero h1{font-size:clamp(36px,6vw,68px);font-weight:700;line-height:1;letter-spacing:-.04em;margin-bottom:16px}
+.hero h1 .g{background:linear-gradient(135deg,var(--accent2),var(--accent3),#e879f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7}
 
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(124,58,237,0.1);
-  border:1px solid rgba(124,58,237,0.3);
-  border-radius:20px;
-  padding:6px 16px;
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--accent3);
-  margin-bottom:24px;
-  letter-spacing:0.05em;
-}
+/* UPLOAD SECTION */
+.upload-section{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:16px;position:relative;overflow:hidden}
+.upload-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
 
-.hero h1{
-  font-size:clamp(42px,7vw,80px);
-  font-weight:700;
-  line-height:1;
-  letter-spacing:-0.04em;
-  margin-bottom:20px;
-}
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
 
-.hero h1 .line1{display:block;color:var(--text)}
-.hero h1 .line2{
-  display:block;
-  background:linear-gradient(135deg,var(--accent2),var(--accent3),#e879f9);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
+.section-label{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.section-num{width:22px;height:22px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent3);font-weight:700}
 
-.hero p{
-  font-size:16px;
-  color:var(--muted);
-  max-width:500px;
-  margin:0 auto 40px;
-  line-height:1.7;
-}
+.upload-zone{border:1.5px dashed var(--border2);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(124,58,237,.02);position:relative}
+.upload-zone:hover{border-color:var(--accent);background:rgba(124,58,237,.05)}
+.upload-zone.dragover{border-color:var(--accent2);background:rgba(124,58,237,.08);transform:scale(1.01)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:28px;margin-bottom:10px}
+.upload-text strong{display:block;font-size:14px;margin-bottom:3px}
+.upload-text{font-size:12px;color:var(--muted);line-height:1.5}
 
-.hero-stats{
-  display:flex;align-items:center;justify-content:center;gap:32px;
-  margin-bottom:60px;
-}
+.file-chip{display:none;align-items:center;gap:6px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:11px;color:var(--accent3);margin-top:10px}
+.file-chip.show{display:flex}
 
-.stat{text-align:center}
-.stat-num{
-  font-size:24px;font-weight:700;
-  color:var(--accent3);
-  font-family:var(--mono);
-}
-.stat-label{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:0.05em;text-transform:uppercase}
+.process-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;padding:13px;font-family:var(--font);font-size:14px;font-weight:600;color:#fff;cursor:pointer;margin-top:12px;transition:all .2s;position:relative;overflow:hidden}
+.process-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,.4)}
+.process-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
-.stat-divider{width:1px;height:32px;background:var(--border2)}
-
-/* MAIN GRID */
-.main-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-bottom:16px;
-}
-
-/* CARDS */
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:28px;
-  transition:border-color 0.2s;
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-
-.card:focus-within::before,.card:hover::before{opacity:1}
-.card:focus-within{border-color:rgba(124,58,237,0.4)}
-
-.card-full{grid-column:1/-1}
-
-.card-label{
-  display:flex;align-items:center;gap:8px;
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  margin-bottom:20px;
-}
-
-.card-num{
-  width:22px;height:22px;
-  background:rgba(124,58,237,0.15);
-  border:1px solid rgba(124,58,237,0.3);
-  border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;color:var(--accent3);font-weight:700;
-}
-
-/* UPLOAD ZONE */
-.upload-zone{
-  border:1.5px dashed var(--border2);
-  border-radius:12px;
-  padding:32px 24px;
-  text-align:center;
-  cursor:pointer;
-  transition:all 0.2s;
-  background:rgba(124,58,237,0.02);
-  position:relative;
-}
-
-.upload-zone:hover{
-  border-color:var(--accent);
-  background:rgba(124,58,237,0.05);
-}
-
-.upload-zone.dragover{
-  border-color:var(--accent2);
-  background:rgba(124,58,237,0.08);
-  transform:scale(1.01);
-}
-
-.upload-zone input{
-  position:absolute;inset:0;
-  opacity:0;cursor:pointer;width:100%;height:100%;
-}
-
-.upload-icon{
-  font-size:32px;margin-bottom:12px;
-  filter:grayscale(0.5);
-}
-
-.upload-text{font-size:14px;color:var(--muted);line-height:1.6}
-.upload-text strong{color:var(--text);display:block;font-size:15px;margin-bottom:4px}
-
-.file-name{
-  display:none;
-  align-items:center;gap:8px;
-  background:rgba(124,58,237,0.1);
-  border:1px solid rgba(124,58,237,0.2);
-  border-radius:8px;
-  padding:10px 14px;
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--accent3);
-  margin-top:12px;
-}
-
-.file-name.show{display:flex}
-
-.process-btn{
-  width:100%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  border-radius:10px;
-  padding:14px;
-  font-family:var(--font);
-  font-size:14px;
-  font-weight:600;
-  color:#fff;
-  cursor:pointer;
-  margin-top:14px;
-  transition:all 0.2s;
-  position:relative;
-  overflow:hidden;
-}
-
-.process-btn::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);
-  opacity:0;transition:opacity 0.2s;
-}
-
-.process-btn:hover::before{opacity:1}
-.process-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,0.4)}
-.process-btn:active{transform:translateY(0)}
-.process-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
-
-/* STATUS MESSAGES */
-.status-msg{
-  margin-top:12px;
-  padding:10px 14px;
-  border-radius:8px;
-  font-family:var(--mono);
-  font-size:12px;
-  display:none;
-}
-
+.status-msg{margin-top:10px;padding:9px 12px;border-radius:8px;font-family:var(--mono);font-size:11px;display:none}
 .status-msg.show{display:block}
-.status-msg.success{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:var(--green)}
-.status-msg.error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:var(--red)}
-.status-msg.loading{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);color:var(--accent3)}
+.status-msg.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+.status-msg.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.status-msg.loading{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:var(--accent3)}
 
-/* CHUNKS INDICATOR */
-.chunks-bar{
-  margin-top:12px;
-  display:none;
-}
+.chunks-bar{margin-top:10px;display:none}
 .chunks-bar.show{display:block}
-.chunks-label{
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:11px;color:var(--muted);
-  margin-bottom:6px;
-}
-.chunks-track{
-  height:3px;background:var(--border2);border-radius:2px;overflow:hidden;
-}
-.chunks-fill{
-  height:100%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  border-radius:2px;
-  width:0%;
-  transition:width 0.8s ease;
-}
+.chunks-label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:5px}
+.chunks-track{height:2px;background:var(--border2);border-radius:2px;overflow:hidden}
+.chunks-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .8s ease}
 
-/* QUESTION */
-.question-wrap{
-  display:flex;gap:8px;margin-bottom:16px;
-}
-
-.question-input{
-  flex:1;
-  background:var(--surface2);
-  border:1px solid var(--border2);
-  border-radius:10px;
-  padding:14px 16px;
-  font-family:var(--font);
-  font-size:14px;
-  color:var(--text);
-  outline:none;
-  transition:border-color 0.2s;
-}
-
-.question-input::placeholder{color:var(--muted)}
-.question-input:focus{border-color:var(--accent)}
-
-.ask-btn{
-  background:var(--accent);
-  border:none;
-  border-radius:10px;
-  padding:14px 20px;
-  font-family:var(--font);
-  font-size:14px;
-  font-weight:600;
-  color:#fff;
-  cursor:pointer;
-  transition:all 0.2s;
-  white-space:nowrap;
-  flex-shrink:0;
-}
-
+/* QUESTION SECTION */
+.question-section{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:16px}
+.q-row{display:flex;gap:10px}
+.q-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;font-family:var(--font);font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.q-input::placeholder{color:var(--muted)}
+.q-input:focus{border-color:var(--accent)}
+.ask-btn{background:var(--accent);border:none;border-radius:10px;padding:14px 22px;font-family:var(--font);font-size:14px;font-weight:600;color:#fff;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .ask-btn:hover{background:var(--accent2);transform:translateY(-1px)}
-.ask-btn:active{transform:translateY(0)}
 
-/* ANSWER */
-.answer-box{
-  background:var(--surface2);
-  border:1px solid var(--border2);
-  border-radius:12px;
-  padding:20px;
-  display:none;
-  animation:fadeUp 0.3s ease;
-  position:relative;
-}
+/* ANSWER SECTION */
+.answer-section{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:32px;display:none;animation:fadeUp .3s ease;position:relative;overflow:hidden}
+.answer-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent2),transparent)}
+.answer-section.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.answer-box.show{display:block}
+.answer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.answer-label{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--accent3);letter-spacing:.08em;text-transform:uppercase}
+.answer-dot{width:7px;height:7px;background:var(--accent2);border-radius:50%;animation:blink 1.5s infinite}
+.answer-model{font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.15);border-radius:6px;padding:3px 8px}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* MARKDOWN RENDERED ANSWER */
+.answer-body{font-size:15px;line-height:1.8;color:var(--text)}
+.answer-body h1,.answer-body h2,.answer-body h3{font-weight:600;margin:20px 0 10px;color:var(--text)}
+.answer-body h2{font-size:17px;color:var(--accent3);border-bottom:1px solid var(--border);padding-bottom:8px}
+.answer-body h3{font-size:15px;color:var(--accent3)}
+.answer-body p{margin-bottom:12px}
+.answer-body ul,.answer-body ol{padding-left:20px;margin-bottom:12px}
+.answer-body li{margin-bottom:6px;line-height:1.7}
+.answer-body strong{color:var(--accent3);font-weight:600}
+.answer-body em{color:var(--muted);font-style:italic}
+.answer-body code{font-family:var(--mono);font-size:12px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:4px;padding:1px 6px;color:var(--accent3)}
+.answer-body pre{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:16px;overflow-x:auto;margin:12px 0}
+.answer-body pre code{background:none;border:none;padding:0;color:var(--text)}
 
-.answer-header{
-  display:flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:11px;color:var(--accent3);
-  margin-bottom:12px;letter-spacing:0.05em;
-  text-transform:uppercase;
-}
+/* TABLE STYLING */
+.answer-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.answer-body th{background:rgba(124,58,237,.12);border:1px solid var(--border2);padding:10px 14px;text-align:left;font-weight:600;color:var(--accent3);font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+.answer-body td{border:1px solid var(--border);padding:10px 14px;vertical-align:top;line-height:1.6}
+.answer-body tr:nth-child(even) td{background:rgba(124,58,237,.03)}
+.answer-body tr:hover td{background:rgba(124,58,237,.06)}
 
-.answer-dot{
-  width:6px;height:6px;
-  background:var(--accent2);
-  border-radius:50%;
-  animation:blink 1.5s infinite;
-}
+/* BLOCKQUOTE */
+.answer-body blockquote{border-left:3px solid var(--accent);padding:12px 16px;margin:12px 0;background:rgba(124,58,237,.05);border-radius:0 8px 8px 0;color:var(--muted);font-style:italic}
 
-.answer-text{
-  font-size:14px;
-  line-height:1.8;
-  color:var(--text);
-}
+/* SOURCE CONTEXT */
+.source-ctx{margin-top:20px;padding:14px 16px;background:rgba(124,58,237,.04);border:1px solid rgba(124,58,237,.1);border-radius:10px}
+.source-ctx-label{font-family:var(--mono);font-size:10px;color:var(--accent3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.source-ctx-text{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7}
 
-.answer-context{
-  margin-top:12px;
-  padding:10px 12px;
-  background:rgba(124,58,237,0.05);
-  border:1px solid rgba(124,58,237,0.1);
-  border-radius:8px;
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.answer-context-label{
-  font-size:10px;color:var(--accent3);
-  margin-bottom:4px;letter-spacing:0.08em;text-transform:uppercase;
-}
-
-/* INFO CARD */
-.info-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin-bottom:60px;
-}
-
-.info-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:20px;
-}
-
-.info-icon{font-size:20px;margin-bottom:10px}
-.info-title{font-size:13px;font-weight:600;margin-bottom:4px}
-.info-desc{font-size:12px;color:var(--muted);line-height:1.6}
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
+.how-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px}
+.how-icon{font-size:22px;margin-bottom:10px}
+.how-title{font-size:13px;font-weight:600;margin-bottom:5px}
+.how-desc{font-size:12px;color:var(--muted);line-height:1.6}
 
 /* FOOTER */
-footer{
-  border-top:1px solid var(--border);
-  padding:28px 0;
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:11px;color:var(--muted);
-  position:relative;z-index:1;
-}
-
-footer a{color:var(--muted);text-decoration:none;transition:color 0.15s}
+footer{border-top:1px solid var(--border);padding:24px 0 40px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+footer a{color:var(--muted);text-decoration:none;transition:color .15s}
 footer a:hover{color:var(--accent3)}
 
-/* TYPING INDICATOR */
-.typing{
-  display:inline-flex;gap:4px;align-items:center;
-  padding:4px 0;
-}
-.typing span{
-  width:6px;height:6px;
-  background:var(--accent2);
-  border-radius:50%;
-  animation:bounce 1.2s infinite;
-}
-.typing span:nth-child(2){animation-delay:0.2s}
-.typing span:nth-child(3){animation-delay:0.4s}
-
+/* TYPING */
+.typing{display:inline-flex;gap:4px;align-items:center;padding:8px 0}
+.typing span{width:7px;height:7px;background:var(--accent2);border-radius:50%;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 
 @media(max-width:640px){
-  .main-grid{grid-template-columns:1fr}
-  .info-grid{grid-template-columns:1fr}
-  .hero h1{font-size:38px}
-  .hero-stats{gap:16px}
+  .upload-grid{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
 }
 </style>
 </head>
 <body>
-
 <div class="wrap">
+
   <header>
     <div class="logo">
       <div class="logo-icon">🧠</div>
       <div class="logo-text">Docu<span>Mind</span></div>
     </div>
-    <div class="status-pill">
-      <div class="status-dot"></div>
-      Groq LLaMA · RAG Active
-    </div>
+    <div class="status-pill"><div class="status-dot"></div>Groq LLaMA 3.1 · RAG Active</div>
   </header>
 
   <section class="hero">
     <div class="hero-badge">⚡ Powered by Retrieval-Augmented Generation</div>
-    <h1>
-      <span class="line1">Ask Anything</span>
-      <span class="line2">From Any Document</span>
-    </h1>
-    <p>Upload a PDF and get instant, accurate answers powered by LLaMA AI and vector search. No hallucinations — only answers grounded in your document.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">~1s</div>
-        <div class="stat-label">Response time</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">RAG</div>
-        <div class="stat-label">Architecture</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Page support</div>
-      </div>
-    </div>
+    <h1>Ask Anything<br><span class="g">From Any Document</span></h1>
+    <p>Upload a PDF and get instant, structured answers powered by LLaMA AI. No hallucinations — only answers grounded in your document.</p>
   </section>
 
-  <div class="main-grid">
-    <!-- UPLOAD -->
-    <div class="card">
-      <div class="card-label">
-        <div class="card-num">01</div>
-        Upload Document
-      </div>
-      <div class="upload-zone" id="dropZone">
-        <input type="file" id="fileInput" accept=".pdf" onchange="handleFile(this)">
-        <div class="upload-icon">📄</div>
-        <div class="upload-text">
-          <strong>Drop your PDF here</strong>
-          or click to browse
-        </div>
-      </div>
-      <div class="file-name" id="fileName">
-        <span>📎</span>
-        <span id="fileNameText"></span>
-      </div>
-      <button class="process-btn" id="processBtn" onclick="uploadFile()" disabled>
-        Process Document →
-      </button>
-      <div class="status-msg" id="uploadStatus"></div>
-      <div class="chunks-bar" id="chunksBar">
-        <div class="chunks-label">
-          <span>Chunks indexed</span>
-          <span id="chunksCount">0</span>
-        </div>
-        <div class="chunks-track">
-          <div class="chunks-fill" id="chunksFill"></div>
-        </div>
-      </div>
-    </div>
+  <!-- UPLOAD + QUESTION -->
+  <div class="upload-section">
+    <div class="upload-grid">
 
-    <!-- ASK -->
-    <div class="card">
-      <div class="card-label">
-        <div class="card-num">02</div>
-        Ask a Question
-      </div>
-      <div class="question-wrap">
-        <input
-          type="text"
-          class="question-input"
-          id="questionInput"
-          placeholder="What does this document say about..."
-          onkeydown="if(event.key==='Enter')askQuestion()"
-        >
-        <button class="ask-btn" onclick="askQuestion()">Ask →</button>
-      </div>
-      <div class="answer-box" id="answerBox">
-        <div class="answer-header">
-          <div class="answer-dot"></div>
-          AI Response
+      <!-- LEFT: UPLOAD -->
+      <div>
+        <div class="section-label"><div class="section-num">01</div>Upload Document</div>
+        <div class="upload-zone" id="dropZone">
+          <input type="file" id="fileInput" accept=".pdf" onchange="handleFile(this)">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text"><strong>Drop your PDF here</strong>or click to browse files</div>
         </div>
-        <div class="answer-text" id="answerText"></div>
-        <div class="answer-context" id="answerContext" style="display:none">
-          <div class="answer-context-label">Source context</div>
-          <div id="contextText"></div>
+        <div class="file-chip" id="fileChip"><span>📎</span><span id="fileChipName"></span></div>
+        <button class="process-btn" id="processBtn" onclick="uploadFile()" disabled>Process Document →</button>
+        <div class="status-msg" id="uploadStatus"></div>
+        <div class="chunks-bar" id="chunksBar">
+          <div class="chunks-label"><span>Chunks indexed</span><span id="chunksCount">0</span></div>
+          <div class="chunks-track"><div class="chunks-fill" id="chunksFill"></div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: QUESTION -->
+      <div>
+        <div class="section-label"><div class="section-num">02</div>Ask a Question</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+          Ask anything about the uploaded document. For comparisons, ask <em>"compare X and Y"</em> and you'll get a formatted table. For definitions, ask <em>"what is X"</em> for a structured answer.
+        </p>
+        <div class="q-row">
+          <input type="text" class="q-input" id="qInput" placeholder="e.g. Compare loose coupling vs tight coupling" onkeydown="if(event.key==='Enter')ask()">
+          <button class="ask-btn" onclick="ask()">Ask →</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px" id="suggestions">
+          <button onclick="setQ('Compare loose coupling and tight coupling')" style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--accent3);cursor:pointer;font-family:var(--font)">Compare coupling types</button>
+          <button onclick="setQ('What is decoupling?')" style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--accent3);cursor:pointer;font-family:var(--font)">What is decoupling?</button>
+          <button onclick="setQ('Explain message queues with examples')" style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--accent3);cursor:pointer;font-family:var(--font)">Message queues</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ANSWER -->
+  <div class="answer-section" id="answerSection">
+    <div class="answer-header">
+      <div class="answer-label"><div class="answer-dot"></div>AI Response</div>
+      <div class="answer-model">llama-3.1-8b · Groq</div>
+    </div>
+    <div class="answer-body" id="answerBody"></div>
+    <div class="source-ctx" id="sourceCtx" style="display:none">
+      <div class="source-ctx-label">📍 Source context from document</div>
+      <div class="source-ctx-text" id="sourceText"></div>
+    </div>
+  </div>
+
   <!-- HOW IT WORKS -->
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="info-icon">📤</div>
-      <div class="info-title">1. Upload PDF</div>
-      <div class="info-desc">Your document is parsed, split into chunks, and stored in a vector database</div>
-    </div>
-    <div class="info-card">
-      <div class="info-icon">🔍</div>
-      <div class="info-title">2. Semantic Search</div>
-      <div class="info-desc">Your question is matched against the most relevant chunks using cosine similarity</div>
-    </div>
-    <div class="info-card">
-      <div class="info-icon">🤖</div>
-      <div class="info-title">3. AI Answer</div>
-      <div class="info-desc">LLaMA 3.1 generates a precise answer grounded only in your document's content</div>
-    </div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-icon">📤</div><div class="how-title">1. Upload PDF</div><div class="how-desc">Document is parsed, split into chunks, and indexed for fast retrieval</div></div>
+    <div class="how-card"><div class="how-icon">🔍</div><div class="how-title">2. Semantic Search</div><div class="how-desc">Your question is matched against the most relevant chunks using similarity search</div></div>
+    <div class="how-card"><div class="how-icon">🤖</div><div class="how-title">3. Structured Answer</div><div class="how-desc">LLaMA 3.1 generates a formatted answer — tables, bullets, headings — grounded in your doc</div></div>
   </div>
 
   <footer>
@@ -625,82 +257,101 @@ const API = '';
 let selectedFile = null;
 
 // Drag & drop
-const dropZone = document.getElementById('dropZone');
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file && file.type === 'application/pdf') {
-    selectedFile = file;
-    showFile(file.name);
-  }
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') { selectedFile = f; showFile(f.name); }
 });
 
-function handleFile(input) {
-  selectedFile = input.files[0];
-  showFile(selectedFile.name);
-}
+function handleFile(input) { selectedFile = input.files[0]; showFile(selectedFile.name); }
 
 function showFile(name) {
-  document.getElementById('fileNameText').textContent = name;
-  document.getElementById('fileName').classList.add('show');
+  document.getElementById('fileChipName').textContent = name;
+  document.getElementById('fileChip').classList.add('show');
   document.getElementById('processBtn').disabled = false;
 }
 
 function setStatus(id, msg, type) {
   const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = 'status-msg show ' + type;
+  el.textContent = msg; el.className = 'status-msg show ' + type;
+}
+
+function setQ(q) {
+  document.getElementById('qInput').value = q;
+  document.getElementById('qInput').focus();
 }
 
 async function uploadFile() {
   if (!selectedFile) return;
   const btn = document.getElementById('processBtn');
-  btn.disabled = true;
-  btn.textContent = 'Processing...';
-  setStatus('uploadStatus', '⟳ Uploading and chunking PDF...', 'loading');
-
+  btn.disabled = true; btn.textContent = 'Processing...';
+  setStatus('uploadStatus', '⟳ Uploading and indexing PDF...', 'loading');
   const form = new FormData();
   form.append('file', selectedFile);
-
   try {
     const res = await fetch(`${API}/upload`, { method: 'POST', body: form });
     const data = await res.json();
-
     if (!res.ok) throw new Error(data.detail || 'Upload failed');
-
     setStatus('uploadStatus', `✓ ${data.message} — ready to answer questions`, 'success');
-
-    // Animate chunks bar
     const bar = document.getElementById('chunksBar');
     bar.classList.add('show');
     document.getElementById('chunksCount').textContent = data.chunks;
-    setTimeout(() => {
-      document.getElementById('chunksFill').style.width = Math.min(100, data.chunks) + '%';
-    }, 100);
-
+    setTimeout(() => { document.getElementById('chunksFill').style.width = Math.min(100, data.chunks / 2) + '%'; }, 100);
     btn.textContent = 'Process Document →';
-  } catch (e) {
+  } catch(e) {
     setStatus('uploadStatus', '✗ ' + e.message, 'error');
-    btn.disabled = false;
-    btn.textContent = 'Process Document →';
+    btn.disabled = false; btn.textContent = 'Process Document →';
   }
 }
 
-async function askQuestion() {
-  const q = document.getElementById('questionInput').value.trim();
+// Simple markdown parser
+function parseMarkdown(md) {
+  let html = md
+    // Tables
+    .replace(/\|(.+)\|\n\|[-| :]+\|\n((?:\|.+\|\n?)*)/g, (_, header, rows) => {
+      const ths = header.split('|').filter(Boolean).map(h => `<th>${h.trim()}</th>`).join('');
+      const trs = rows.trim().split('\n').map(row => {
+        const tds = row.split('|').filter(Boolean).map(d => `<td>${d.trim()}</td>`).join('');
+        return `<tr>${tds}</tr>`;
+      }).join('');
+      return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+    })
+    // Headings
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Code inline
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    // Bullet lists
+    .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, s => `<ul>${s}</ul>`)
+    // Numbered lists
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    // Blockquotes
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    // Paragraphs
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  return `<p>${html}</p>`;
+}
+
+async function ask() {
+  const q = document.getElementById('qInput').value.trim();
   if (!q) return;
-
-  const box = document.getElementById('answerBox');
-  const text = document.getElementById('answerText');
-  const ctx = document.getElementById('answerContext');
-
-  box.classList.add('show');
-  text.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  const section = document.getElementById('answerSection');
+  const body = document.getElementById('answerBody');
+  const ctx = document.getElementById('sourceCtx');
+  section.classList.add('show');
+  body.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
   ctx.style.display = 'none';
-
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
     const res = await fetch(`${API}/ask`, {
       method: 'POST',
@@ -708,18 +359,14 @@ async function askQuestion() {
       body: JSON.stringify({ question: q })
     });
     const data = await res.json();
-
-    if (!res.ok) throw new Error(data.detail || 'Failed to get answer');
-
-    text.textContent = data.answer;
-
+    if (!res.ok) throw new Error(data.detail || 'Failed');
+    body.innerHTML = parseMarkdown(data.answer);
     if (data.context) {
       ctx.style.display = 'block';
-      document.getElementById('contextText').textContent = data.context + '...';
+      document.getElementById('sourceText').textContent = data.context + '...';
     }
-  } catch (e) {
-    text.textContent = '✗ ' + e.message;
-    text.style.color = 'var(--red)';
+  } catch(e) {
+    body.innerHTML = `<p style="color:var(--red)">✗ ${e.message}</p>`;
   }
 }
 </script>
