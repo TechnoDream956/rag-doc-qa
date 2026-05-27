@@ -87,4 +87,4 @@ https://rag-doc-qa-4udm.onrender.com
 
 Arpit Sehrawat — @TechnoDream956
 
-Bennett University | Cloud & Backend Developer
+Bennett University | Cloud , AI & Backend Developer
