@@ -1,8 +1,8 @@
 fastapi
-uvicorn
+uvicorn[standard]
 python-multipart
 pypdf
 chromadb
 sentence-transformers
-google-generativeai
+groq
 python-dotenv
